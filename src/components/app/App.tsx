@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import Header from './components/header/header';
-import Main from './components/main/main';
+import Header from '../header/header';
+import Main from '../main/main';
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
         <Main/>
         <div className="popup card-popup">
           <div className="popup__content">
-            <img src="./images/close.svg" alt="" className="popup__close popup__close-card"/>
+            <img src="../../images/close.svg" alt="" className="popup__close popup__close-card"/>
               <h3 className="popup__title">Новое место</h3>
               <form className="popup__form form-card" name="new" noValidate>
                 <input id="name-card" type="text" name="name" className="popup__input popup__input_type_name"
@@ -28,7 +28,7 @@ function App() {
 
         <div className="popup profile-popup">
           <div className="popup__content">
-            <img src="./images/close.svg" alt="" className="popup__close popup__close-profile"/>
+            <img src="../../images/close.svg" alt="" className="popup__close popup__close-profile"/>
               <h3 className="popup__title">Редактировать профиль</h3>
               <form className="popup__form form-profile" name="edit" noValidate>
                 <input id="name-edit" type="text" name="nameEdit" className="popup__input popup__input_type_name"
@@ -47,7 +47,7 @@ function App() {
         <div className="popup image-popup">
           <div className="popup__container" style={{position: "relative"}}>
             <img src="#" alt="" className="popup__image"/>
-              <img src="./images/close.svg" alt="" className="popup__close popup__close-image"/>
+              <img src="../../images/close.svg" alt="" className="popup__close popup__close-image"/>
           </div>
         </div>
 
