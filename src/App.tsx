@@ -1,12 +1,13 @@
 import React from 'react';
 import './App.css';
+import logoMesto from './images/logo.svg';
 
 function App() {
   return (
     <>
       <div className="root">
         <header className="header root__section">
-          <img src="./images/logo.svg" alt="mesto logo" className="logo"/>
+          <img src={logoMesto} alt="mesto logo" className="logo"/>
         </header>
         <div className="profile root__section">
           <div className="user-info">
