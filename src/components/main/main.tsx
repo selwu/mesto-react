@@ -3,16 +3,15 @@ import './main.css';
 
 const Main = () => {
 
-  const handleEditAvatarClick = () => {
-
-  };
 
   const handleEditProfileClick = () => {
-
+    const popup = document.querySelector('.profile-popup');
+    popup!.classList.add('popup_is-opened');
   };
 
   const handleAddPlaceClick = () => {
-
+    const popup = document.querySelector('.card-popup');
+    popup!.classList.add('popup_is-opened');
   };
 
   return (
@@ -23,9 +22,9 @@ const Main = () => {
           <div className="user-info__data">
             <h1 className="user-info__name"></h1>
             <p className="user-info__job"></p>
-            <button className="user-info__edit">Edit</button>
+            <button onClick={handleEditProfileClick} className="user-info__edit">Edit</button>
           </div>
-          <button className="button user-info__button">+</button>
+          <button onClick={handleAddPlaceClick} className="button user-info__button">+</button>
         </div>
       </div>
       <div className="places-list root__section">
