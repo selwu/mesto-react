@@ -1,30 +1,17 @@
 import React from 'react';
 import './App.css';
-import logoMesto from './images/logo.svg';
+import Header from '../header/header';
+import Main from '../main/main';
 
 function App() {
   return (
     <>
       <div className="root">
-        <header className="header root__section">
-          <img src={logoMesto} alt="mesto logo" className="logo"/>
-        </header>
-        <div className="profile root__section">
-          <div className="user-info">
-            <div className="user-info__photo"></div>
-            <div className="user-info__data">
-              <h1 className="user-info__name"></h1>
-              <p className="user-info__job"></p>
-              <button className="user-info__edit">Edit</button>
-            </div>
-            <button className="button user-info__button">+</button>
-          </div>
-        </div>
-        <div className="places-list root__section">
-        </div>
+        <Header/>
+        <Main/>
         <div className="popup card-popup">
           <div className="popup__content">
-            <img src="./images/close.svg" alt="" className="popup__close popup__close-card"/>
+            <img src="../../images/close.svg" alt="" className="popup__close popup__close-card"/>
               <h3 className="popup__title">Новое место</h3>
               <form className="popup__form form-card" name="new" noValidate>
                 <input id="name-card" type="text" name="name" className="popup__input popup__input_type_name"
@@ -41,7 +28,7 @@ function App() {
 
         <div className="popup profile-popup">
           <div className="popup__content">
-            <img src="./images/close.svg" alt="" className="popup__close popup__close-profile"/>
+            <img src="../../images/close.svg" alt="" className="popup__close popup__close-profile"/>
               <h3 className="popup__title">Редактировать профиль</h3>
               <form className="popup__form form-profile" name="edit" noValidate>
                 <input id="name-edit" type="text" name="nameEdit" className="popup__input popup__input_type_name"
@@ -60,7 +47,7 @@ function App() {
         <div className="popup image-popup">
           <div className="popup__container" style={{position: "relative"}}>
             <img src="#" alt="" className="popup__image"/>
-              <img src="./images/close.svg" alt="" className="popup__close popup__close-image"/>
+              <img src="../../images/close.svg" alt="" className="popup__close popup__close-image"/>
           </div>
         </div>
 
