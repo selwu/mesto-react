@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import './main.css';
 import { api } from '../../utils/api';
+import Card from '../card/card';
 
 interface MainType {
   onEditProfile: () => void;
   onAddPlace: () => void;
 }
 
+export interface DataObj {
+  name: string;
+  likes: { about: string; avatar: string; cohort: string; name: string; _id: string }[];
+  link: string;
+}
+
 const Main = ({ onEditProfile, onAddPlace }: MainType) => {
   const [userName, setUserName] = useState<string>('');
   const [userDescription, setUserDescription] = useState<string>('');
   const [userAvatar, setUserAvatar] = useState<string>('');
-  const [cards, setCards] = useState<{}[]>([]);
+  const [cards, setCards] = useState<DataObj[]>([]);
 
   useEffect(() => {
     api.getUserInfo().then((data) => {
@@ -21,29 +28,12 @@ const Main = ({ onEditProfile, onAddPlace }: MainType) => {
     });
     api.getInitialCards().then((data) => {
       setCards(data);
+      console.log(data);
     });
   }, []);
 
-  const cardsElement = cards.map((item, index) => {
-    return (
-      <div key={index} className="place-card">
-        <div
-          className="place-card__image"
-          style={{
-            backgroundImage: `url(https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg)`,
-          }}
-        >
-          <button className="place-card__delete-icon"></button>
-        </div>
-        <div className="place-card__description">
-          <h3 className="place-card__name">Камчатка</h3>
-          <div className="place-card__wrapper">
-            <button className="place-card__like-icon"></button>
-            <span className="place-card__like-count"></span>
-          </div>
-        </div>
-      </div>
-    );
+  const cardsElement = cards.map((card, index) => {
+    return <Card card={card} key={index} />;
   });
 
   return (
