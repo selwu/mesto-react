@@ -5,10 +5,10 @@ import Main from '../main/main';
 
 function App() {
   return (
-      <div className="root">
-        <Header/>
-        <Main/>
-      </div>
+    <div className="root">
+      <Header />
+      <Main />
+    </div>
   );
 }
 
