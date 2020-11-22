@@ -18,6 +18,8 @@ function App() {
         className="popup__input popup__input_type_name"
         required
         placeholder="Название"
+        minLength={2}
+        maxLength={30}
       />
       <span id="name-card-error" className="error" />
       <input
@@ -44,6 +46,8 @@ function App() {
         className="popup__input popup__input_type_name"
         required
         placeholder="Имя"
+        minLength={2}
+        maxLength={30}
       />
       <span id="name-edit-error" className="error" />
       <input
@@ -53,6 +57,8 @@ function App() {
         className="popup__input popup__input_type_link-url"
         required
         placeholder="О себе"
+        minLength={2}
+        maxLength={30}
       />
       <span id="job-edit-error" className="error" />
       <button type="submit" className="button popup__button popup__button_edit popup__button_valid">
@@ -70,7 +76,7 @@ function App() {
   };
 
   useEffect(() => {
-    console.log('render well');
+    console.log('render app');
   });
 
   return (
