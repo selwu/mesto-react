@@ -13,27 +13,7 @@ const PopupWithForm = ({ title, name, children }: Popup) => {
         <img src="../../images/close.svg" alt="" className="popup__close popup__close-card" />
         <h3 className="popup__title">{title}</h3>
         <form className="popup__form form-card" name={name} noValidate>
-          <input
-            id="name-card"
-            type="text"
-            name="name"
-            className="popup__input popup__input_type_name"
-            required
-            placeholder="Название"
-          />
-          <span id="name-card-error" className="error"></span>
-          <input
-            id="url-card"
-            type="url"
-            name="link"
-            className="popup__input popup__input_type_link-url"
-            required
-            placeholder="Ссылка на картинку"
-          />
-          <span id="url-card-error" className="error"></span>
-          <button type="submit" className="button popup__button popup__button_card">
-            +
-          </button>
+          {children}
         </form>
       </div>
     </div>
