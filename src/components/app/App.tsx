@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import Header from '../header/header';
 import Main from '../main/main';
@@ -68,6 +68,10 @@ function App() {
   const handleAddPlaceClick = () => {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   };
+
+  useEffect(() => {
+    console.log('render well');
+  });
 
   return (
     <div className="root">

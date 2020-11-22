@@ -4,7 +4,7 @@ import closeIcon from '../../images/close.svg';
 interface Popup {
   title: string;
   name: string;
-  onClose: any;
+  onClose: () => void;
   children: JSX.Element;
 }
 
