@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
+import closeIcon from '../../images/close.svg';
 
-const ImagePopup = () => {
+interface imagePopup {
+  selectedCard: string | undefined;
+  onClose: Dispatch<SetStateAction<string | undefined>>;
+}
+
+const ImagePopup = ({ selectedCard, onClose }: imagePopup) => {
   return (
-    <div className="image-popup">
+    <div className="popup image-popup">
       <div className="popup__container" style={{ position: 'relative' }}>
-        <img src="#" alt="" className="popup__image" />
-        <img src="../../images/close.svg" alt="" className="popup__close popup__close-image" />
+        <img src={selectedCard} alt="" className="popup__image" />
+        <img
+          onClick={() => onClose(undefined)}
+          src={closeIcon}
+          alt="увеличенная картинка"
+          className="popup__close"
+        />
       </div>
     </div>
   );

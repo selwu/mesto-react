@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import './main.css';
 import { api } from '../../utils/api';
+import Card from '../card/card';
 
 interface MainType {
   onEditProfile: () => void;
   onAddPlace: () => void;
+  onCardClick: (link: string | undefined) => void;
 }
 
-const Main = ({ onEditProfile, onAddPlace }: MainType) => {
+export interface DataObj {
+  name: string;
+  likes: { about: string; avatar: string; cohort: string; name: string; _id: string }[];
+  link: string;
+}
+
+const Main = ({ onEditProfile, onAddPlace, onCardClick }: MainType) => {
   const [userName, setUserName] = useState<string>('');
   const [userDescription, setUserDescription] = useState<string>('');
-  const [userAvatar, setUserAvatar] = useState<string>();
+  const [userAvatar, setUserAvatar] = useState<string>('');
+  const [cards, setCards] = useState<DataObj[]>([]);
 
   useEffect(() => {
     api.getUserInfo().then((data) => {
@@ -18,8 +27,14 @@ const Main = ({ onEditProfile, onAddPlace }: MainType) => {
       setUserDescription(data.about);
       setUserAvatar(data.avatar);
     });
+    api.getInitialCards().then((data) => {
+      setCards(data);
+    });
   }, []);
-  console.log('main');
+
+  const cardsElement = cards.map((card, index) => {
+    return <Card card={card} key={index} onCardClick={onCardClick} />;
+  });
 
   return (
     <>
@@ -38,7 +53,7 @@ const Main = ({ onEditProfile, onAddPlace }: MainType) => {
           </button>
         </div>
       </div>
-      <div className="places-list root__section" />
+      <div className="places-list root__section">{cardsElement}</div>
     </>
   );
 };

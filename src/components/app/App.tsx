@@ -8,6 +8,7 @@ import ImagePopup from '../image-popup/image-popup';
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState<boolean>(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState<boolean>(false);
+  const [selectedCard, setSelectedCard] = useState<string | undefined>(undefined);
 
   const cardPopup = (
     <>
@@ -18,6 +19,8 @@ function App() {
         className="popup__input popup__input_type_name"
         required
         placeholder="Название"
+        minLength={2}
+        maxLength={30}
       />
       <span id="name-card-error" className="error" />
       <input
@@ -44,6 +47,8 @@ function App() {
         className="popup__input popup__input_type_name"
         required
         placeholder="Имя"
+        minLength={2}
+        maxLength={30}
       />
       <span id="name-edit-error" className="error" />
       <input
@@ -53,6 +58,8 @@ function App() {
         className="popup__input popup__input_type_link-url"
         required
         placeholder="О себе"
+        minLength={2}
+        maxLength={30}
       />
       <span id="job-edit-error" className="error" />
       <button type="submit" className="button popup__button popup__button_edit popup__button_valid">
@@ -69,14 +76,22 @@ function App() {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   };
 
+  const handleCardClick = (link: string | undefined) => {
+    setSelectedCard(link);
+  };
+
   useEffect(() => {
-    console.log('render well');
+    console.log('render app');
   });
 
   return (
     <div className="root">
       <Header />
-      <Main onAddPlace={handleAddPlaceClick} onEditProfile={handleEditProfileClick} />
+      <Main
+        onAddPlace={handleAddPlaceClick}
+        onEditProfile={handleEditProfileClick}
+        onCardClick={handleCardClick}
+      />
       {isEditProfilePopupOpen && (
         <PopupWithForm
           onClose={handleEditProfileClick}
@@ -91,7 +106,7 @@ function App() {
           {cardPopup}
         </PopupWithForm>
       )}
-      <ImagePopup />
+      {selectedCard && <ImagePopup onClose={setSelectedCard} selectedCard={selectedCard} />}
     </div>
   );
 }
