@@ -8,6 +8,7 @@ import ImagePopup from '../image-popup/image-popup';
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState<boolean>(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState<boolean>(false);
+  const [selectedCard, setSelectedCard] = useState<string | undefined>(undefined);
 
   const cardPopup = (
     <>
@@ -75,6 +76,10 @@ function App() {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   };
 
+  const handleCardClick = (link: string | undefined) => {
+    setSelectedCard(link);
+  };
+
   useEffect(() => {
     console.log('render app');
   });
@@ -82,7 +87,11 @@ function App() {
   return (
     <div className="root">
       <Header />
-      <Main onAddPlace={handleAddPlaceClick} onEditProfile={handleEditProfileClick} />
+      <Main
+        onAddPlace={handleAddPlaceClick}
+        onEditProfile={handleEditProfileClick}
+        onCardClick={handleCardClick}
+      />
       {isEditProfilePopupOpen && (
         <PopupWithForm
           onClose={handleEditProfileClick}
@@ -97,7 +106,7 @@ function App() {
           {cardPopup}
         </PopupWithForm>
       )}
-      <ImagePopup />
+      {selectedCard && <ImagePopup selectedCard={selectedCard} />}
     </div>
   );
 }

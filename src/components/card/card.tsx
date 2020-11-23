@@ -3,11 +3,12 @@ import { DataObj } from '../main/main';
 
 interface card {
   card: DataObj;
+  onCardClick: (link: string | undefined) => void;
 }
 
-const Card = ({ card }: card) => {
+const Card = ({ card, onCardClick }: card) => {
   return (
-    <div className="place-card">
+    <div onClick={() => onCardClick(card.link)} className="place-card">
       <div
         className="place-card__image"
         style={{

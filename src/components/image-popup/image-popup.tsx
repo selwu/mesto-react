@@ -1,11 +1,16 @@
 import React from 'react';
+import closeIcon from '../../images/close.svg';
 
-const ImagePopup = () => {
+interface imagePopup {
+  selectedCard: string | undefined;
+}
+
+const ImagePopup = ({ selectedCard }: imagePopup) => {
   return (
-    <div className="image-popup">
+    <div className="popup image-popup">
       <div className="popup__container" style={{ position: 'relative' }}>
-        <img src="#" alt="" className="popup__image" />
-        <img src="../../images/close.svg" alt="" className="popup__close popup__close-image" />
+        <img src={selectedCard} alt="" className="popup__image" />
+        <img src={closeIcon} alt="" className="popup__close" />
       </div>
     </div>
   );

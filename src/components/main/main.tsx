@@ -6,6 +6,7 @@ import Card from '../card/card';
 interface MainType {
   onEditProfile: () => void;
   onAddPlace: () => void;
+  onCardClick: (link: string | undefined) => void;
 }
 
 export interface DataObj {
@@ -14,7 +15,7 @@ export interface DataObj {
   link: string;
 }
 
-const Main = ({ onEditProfile, onAddPlace }: MainType) => {
+const Main = ({ onEditProfile, onAddPlace, onCardClick }: MainType) => {
   const [userName, setUserName] = useState<string>('');
   const [userDescription, setUserDescription] = useState<string>('');
   const [userAvatar, setUserAvatar] = useState<string>('');
@@ -33,7 +34,7 @@ const Main = ({ onEditProfile, onAddPlace }: MainType) => {
   }, []);
 
   const cardsElement = cards.map((card, index) => {
-    return <Card card={card} key={index} />;
+    return <Card card={card} key={index} onCardClick={onCardClick} />;
   });
 
   return (
