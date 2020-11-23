@@ -29,7 +29,6 @@ const Main = ({ onEditProfile, onAddPlace, onCardClick }: MainType) => {
     });
     api.getInitialCards().then((data) => {
       setCards(data);
-      console.log(data);
     });
   }, []);
 

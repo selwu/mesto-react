@@ -106,7 +106,7 @@ function App() {
           {cardPopup}
         </PopupWithForm>
       )}
-      {selectedCard && <ImagePopup selectedCard={selectedCard} />}
+      {selectedCard && <ImagePopup onClose={setSelectedCard} selectedCard={selectedCard} />}
     </div>
   );
 }
