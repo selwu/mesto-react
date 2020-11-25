@@ -1,32 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './main.css';
 import { api } from '../../utils/api';
 import Card from '../card/card';
-
-interface MainType {
-  onEditProfile: () => void;
-  onAddPlace: () => void;
-  onCardClick: (link: string | undefined) => void;
-}
-
-export interface DataObj {
-  name: string;
-  likes: { about: string; avatar: string; cohort: string; name: string; _id: string }[];
-  link: string;
-}
+import { CurrentUserContext } from '../../contexts/current-user-context';
+import { CardObj, MainType } from '../../types';
 
 const Main = ({ onEditProfile, onAddPlace, onCardClick }: MainType) => {
-  const [userName, setUserName] = useState<string>('');
-  const [userDescription, setUserDescription] = useState<string>('');
-  const [userAvatar, setUserAvatar] = useState<string>('');
-  const [cards, setCards] = useState<DataObj[]>([]);
+  const userContext = useContext(CurrentUserContext);
+  const [cards, setCards] = useState<CardObj[]>([]);
 
   useEffect(() => {
-    api.getUserInfo().then((data) => {
-      setUserName(data.name);
-      setUserDescription(data.about);
-      setUserAvatar(data.avatar);
-    });
     api.getInitialCards().then((data) => {
       setCards(data);
     });
@@ -35,15 +18,21 @@ const Main = ({ onEditProfile, onAddPlace, onCardClick }: MainType) => {
   const cardsElement = cards.map((card, index) => {
     return <Card card={card} key={index} onCardClick={onCardClick} />;
   });
+  if (userContext === undefined) {
+    return null;
+  }
 
   return (
     <>
       <div className="profile root__section">
         <div className="user-info">
-          <div className="user-info__photo" style={{ backgroundImage: `url(${userAvatar})` }} />
+          <div
+            className="user-info__photo"
+            style={{ backgroundImage: `url(${userContext.avatar})` }}
+          />
           <div className="user-info__data">
-            <h1 className="user-info__name">{userName}</h1>
-            <p className="user-info__job">{userDescription}</p>
+            <h1 className="user-info__name">{userContext.name}</h1>
+            <p className="user-info__job">{userContext.about}</p>
             <button onClick={onEditProfile} className="user-info__edit">
               Edit
             </button>
