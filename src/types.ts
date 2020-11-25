@@ -18,3 +18,9 @@ export interface CardObj {
   likes: User[];
   link: string;
 }
+
+export interface MainType {
+  onEditProfile: () => void;
+  onAddPlace: () => void;
+  onCardClick: (link: string | undefined) => void;
+}

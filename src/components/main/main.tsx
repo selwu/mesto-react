@@ -3,13 +3,7 @@ import './main.css';
 import { api } from '../../utils/api';
 import Card from '../card/card';
 import { CurrentUserContext } from '../../contexts/current-user-context';
-import { CardObj } from '../../types';
-
-interface MainType {
-  onEditProfile: () => void;
-  onAddPlace: () => void;
-  onCardClick: (link: string | undefined) => void;
-}
+import { CardObj, MainType } from '../../types';
 
 const Main = ({ onEditProfile, onAddPlace, onCardClick }: MainType) => {
   const userContext = useContext(CurrentUserContext);
