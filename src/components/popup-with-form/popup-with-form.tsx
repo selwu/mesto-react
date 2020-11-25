@@ -1,12 +1,6 @@
 import React from 'react';
 import closeIcon from '../../images/close.svg';
-
-interface Popup {
-  title: string;
-  name: string;
-  onClose: () => void;
-  children: JSX.Element;
-}
+import { Popup } from '../../types';
 
 const PopupWithForm = ({ title, name, onClose, children }: Popup) => {
   return (
