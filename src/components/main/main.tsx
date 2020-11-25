@@ -3,6 +3,7 @@ import './main.css';
 import { api } from '../../utils/api';
 import Card from '../card/card';
 import { CurrentUserContext } from '../../contexts/current-user-context';
+import { CardObj } from '../../types';
 
 interface MainType {
   onEditProfile: () => void;
@@ -10,15 +11,9 @@ interface MainType {
   onCardClick: (link: string | undefined) => void;
 }
 
-export interface DataObj {
-  name: string;
-  likes: { about: string; avatar: string; cohort: string; name: string; _id: string }[];
-  link: string;
-}
-
 const Main = ({ onEditProfile, onAddPlace, onCardClick }: MainType) => {
   const userContext = useContext(CurrentUserContext);
-  const [cards, setCards] = useState<DataObj[]>([]);
+  const [cards, setCards] = useState<CardObj[]>([]);
 
   useEffect(() => {
     api.getInitialCards().then((data) => {
