@@ -13,6 +13,8 @@ export interface Popup {
   children: JSX.Element;
 }
 
+export interface CardsOgj {}
+
 export interface CardObj {
   name: string;
   likes: User[];

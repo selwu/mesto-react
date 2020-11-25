@@ -1,26 +1,23 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import './main.css';
-import { api } from '../../utils/api';
 import Card from '../card/card';
 import { CurrentUserContext } from '../../contexts/current-user-context';
-import { CardObj, MainType } from '../../types';
+
+import { MainType } from '../../types';
+import { CurrentCardContext } from '../../contexts/current-card-context';
 
 const Main = ({ onEditProfile, onAddPlace, onCardClick }: MainType) => {
   const userContext = useContext(CurrentUserContext);
-  const [cards, setCards] = useState<CardObj[]>([]);
-
-  useEffect(() => {
-    api.getInitialCards().then((data) => {
-      setCards(data);
-    });
-  }, []);
-
-  const cardsElement = cards.map((card, index) => {
-    return <Card card={card} key={index} onCardClick={onCardClick} />;
-  });
+  const cardContext = useContext(CurrentCardContext);
+  if (cardContext === undefined) {
+    return null;
+  }
   if (userContext === undefined) {
     return null;
   }
+  const cardsElement = cardContext.map((card, index) => {
+    return <Card card={card} key={index} onCardClick={onCardClick} />;
+  });
 
   return (
     <>

@@ -5,14 +5,16 @@ import Main from '../main/main';
 import PopupWithForm from '../popup-with-form/popup-with-form';
 import ImagePopup from '../image-popup/image-popup';
 import { api } from '../../utils/api';
-import { User } from '../../types';
+import { CardObj, User } from '../../types';
 import { CurrentUserContext } from '../../contexts/current-user-context';
+import { CurrentCardContext } from '../../contexts/current-card-context';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState<boolean>(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState<boolean>(false);
   const [selectedCard, setSelectedCard] = useState<string | undefined>(undefined);
   const [currentUser, setCurrentUser] = useState<User>();
+  const [currentCards, setCurrentCards] = useState<CardObj[]>();
 
   const cardPopup = (
     <>
@@ -88,32 +90,37 @@ function App() {
     api.getUserInfo().then((info) => {
       setCurrentUser(info);
     });
+    api.getInitialCards().then((data) => {
+      setCurrentCards(data);
+    });
   }, []);
 
   return (
     <div className="root">
       <CurrentUserContext.Provider value={currentUser}>
-        <Header />
-        <Main
-          onAddPlace={handleAddPlaceClick}
-          onEditProfile={handleEditProfileClick}
-          onCardClick={handleCardClick}
-        />
-        {isEditProfilePopupOpen && (
-          <PopupWithForm
-            onClose={handleEditProfileClick}
-            title={'Редактировать профиль'}
-            name={'profile'}
-          >
-            {profilePopup}
-          </PopupWithForm>
-        )}
-        {isAddPlacePopupOpen && (
-          <PopupWithForm onClose={handleAddPlaceClick} title={'Новое место'} name={'card'}>
-            {cardPopup}
-          </PopupWithForm>
-        )}
-        {selectedCard && <ImagePopup onClose={setSelectedCard} selectedCard={selectedCard} />}
+        <CurrentCardContext.Provider value={currentCards}>
+          <Header />
+          <Main
+            onAddPlace={handleAddPlaceClick}
+            onEditProfile={handleEditProfileClick}
+            onCardClick={handleCardClick}
+          />
+          {isEditProfilePopupOpen && (
+            <PopupWithForm
+              onClose={handleEditProfileClick}
+              title={'Редактировать профиль'}
+              name={'profile'}
+            >
+              {profilePopup}
+            </PopupWithForm>
+          )}
+          {isAddPlacePopupOpen && (
+            <PopupWithForm onClose={handleAddPlaceClick} title={'Новое место'} name={'card'}>
+              {cardPopup}
+            </PopupWithForm>
+          )}
+          {selectedCard && <ImagePopup onClose={setSelectedCard} selectedCard={selectedCard} />}
+        </CurrentCardContext.Provider>
       </CurrentUserContext.Provider>
     </div>
   );
