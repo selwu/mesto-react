@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
 import './main.css';
 import Card from '../card/card';
-import { CurrentUserContext } from '../../contexts/current-user-context';
-
 import { MainType } from '../../types';
+import { CurrentUserContext } from '../../contexts/current-user-context';
 import { CurrentCardContext } from '../../contexts/current-card-context';
 
 const Main = ({ onEditProfile, onAddPlace, onCardClick }: MainType) => {

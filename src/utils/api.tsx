@@ -58,6 +58,57 @@ class Api {
       return Promise.reject(`error${res.status}`);
     });
   }
+
+  deleteCard(idCard: string) {
+    return fetch(`${this._baseUrl}/cards/${idCard}`, {
+      method: 'DELETE',
+      headers: this._headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`error${res.status}`);
+    });
+  }
+
+  addLikeCard(idCard: string) {
+    return fetch(`${this._baseUrl}/cards/like/${idCard}`, {
+      method: 'PUT',
+      headers: this._headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`error${res.status}`);
+    });
+  }
+
+  deleteLikeCard(idCard: string) {
+    return fetch(`${this._baseUrl}/cards/like/${idCard}`, {
+      method: 'DELETE',
+      headers: this._headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`error${res.status}`);
+    });
+  }
+
+  avatarEdit(urlAvatar: string) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: urlAvatar,
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`error${res.status}`);
+    });
+  }
 }
 
 export const api = new Api();

@@ -91,6 +91,7 @@ function App() {
       setCurrentUser(info);
     });
     api.getInitialCards().then((data) => {
+      console.log(data);
       setCurrentCards(data);
     });
   }, []);
