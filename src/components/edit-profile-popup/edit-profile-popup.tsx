@@ -1,14 +1,31 @@
-import React from 'react';
+import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import PopupWithForm from '../popup-with-form/popup-with-form';
+import { CurrentUserContext } from '../../contexts/current-user-context';
 
 export interface EditProfileType {
   onClose: () => void;
 }
 
 const EditProfilePopup = ({ onClose }: EditProfileType) => {
+  const currentUser = useContext(CurrentUserContext);
+  const [name, setName] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
+
+  const nameHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setName(value);
+  };
+
+  const descriptionHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setDescription(value);
+  };
+
   const profilePopup = (
     <>
       <input
+        onChange={nameHandler}
+        value={name}
         id="name-edit"
         type="text"
         name="nameEdit"
@@ -20,6 +37,8 @@ const EditProfilePopup = ({ onClose }: EditProfileType) => {
       />
       <span id="name-edit-error" className="error" />
       <input
+        onChange={descriptionHandler}
+        value={description}
         id="job-edit"
         type="text"
         name="jobEdit"
@@ -35,6 +54,14 @@ const EditProfilePopup = ({ onClose }: EditProfileType) => {
       </button>
     </>
   );
+
+  useEffect(() => {
+    if (currentUser === undefined) {
+      return console.error('undefined in edit profile');
+    }
+    setName(currentUser.name);
+    setDescription(currentUser.about);
+  }, [currentUser]);
 
   return (
     <PopupWithForm onClose={onClose} title={'Редактировать профиль'} name={'profile'}>
