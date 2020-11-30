@@ -8,6 +8,7 @@ import { api } from '../../utils/api';
 import { CardObj, User } from '../../types';
 import { CurrentUserContext } from '../../contexts/current-user-context';
 import { CurrentCardContext } from '../../contexts/current-card-context';
+import EditProfilePopup from '../edit-profile-popup/edit-profile-popup';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState<boolean>(false);
@@ -44,35 +45,35 @@ function App() {
     </>
   );
 
-  const profilePopup = (
-    <>
-      <input
-        id="name-edit"
-        type="text"
-        name="nameEdit"
-        className="popup__input popup__input_type_name"
-        required
-        placeholder="Имя"
-        minLength={2}
-        maxLength={30}
-      />
-      <span id="name-edit-error" className="error" />
-      <input
-        id="job-edit"
-        type="text"
-        name="jobEdit"
-        className="popup__input popup__input_type_link-url"
-        required
-        placeholder="О себе"
-        minLength={2}
-        maxLength={30}
-      />
-      <span id="job-edit-error" className="error" />
-      <button type="submit" className="button popup__button popup__button_edit popup__button_valid">
-        Сохранить
-      </button>
-    </>
-  );
+  // const profilePopup = (
+  //   <>
+  //     <input
+  //       id="name-edit"
+  //       type="text"
+  //       name="nameEdit"
+  //       className="popup__input popup__input_type_name"
+  //       required
+  //       placeholder="Имя"
+  //       minLength={2}
+  //       maxLength={30}
+  //     />
+  //     <span id="name-edit-error" className="error" />
+  //     <input
+  //       id="job-edit"
+  //       type="text"
+  //       name="jobEdit"
+  //       className="popup__input popup__input_type_link-url"
+  //       required
+  //       placeholder="О себе"
+  //       minLength={2}
+  //       maxLength={30}
+  //     />
+  //     <span id="job-edit-error" className="error" />
+  //     <button type="submit" className="button popup__button popup__button_edit popup__button_valid">
+  //       Сохранить
+  //     </button>
+  //   </>
+  // );
 
   const handleEditProfileClick = () => {
     setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
@@ -107,13 +108,14 @@ function App() {
             onCardClick={handleCardClick}
           />
           {isEditProfilePopupOpen && (
-            <PopupWithForm
-              onClose={handleEditProfileClick}
-              title={'Редактировать профиль'}
-              name={'profile'}
-            >
-              {profilePopup}
-            </PopupWithForm>
+            <EditProfilePopup onClose={handleEditProfileClick} />
+            // <PopupWithForm
+            //   onClose={handleEditProfileClick}
+            //   title={'Редактировать профиль'}
+            //   name={'profile'}
+            // >
+            //   {profilePopup}
+            // </PopupWithForm>
           )}
           {isAddPlacePopupOpen && (
             <PopupWithForm onClose={handleAddPlaceClick} title={'Новое место'} name={'card'}>
