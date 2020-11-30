@@ -1,12 +1,9 @@
-import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react';
 import PopupWithForm from '../popup-with-form/popup-with-form';
 import { CurrentUserContext } from '../../contexts/current-user-context';
+import { EditProfileType } from '../../types';
 
-export interface EditProfileType {
-  onClose: () => void;
-}
-
-const EditProfilePopup = ({ onClose }: EditProfileType) => {
+const EditProfilePopup = ({ onClose, onUpdateUser }: EditProfileType) => {
   const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState<string>('');
   const [description, setDescription] = useState<string>('');
@@ -14,6 +11,12 @@ const EditProfilePopup = ({ onClose }: EditProfileType) => {
   const nameHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setName(value);
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onClose();
+    onUpdateUser({ name: name, about: description });
   };
 
   const descriptionHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -64,7 +67,12 @@ const EditProfilePopup = ({ onClose }: EditProfileType) => {
   }, [currentUser]);
 
   return (
-    <PopupWithForm onClose={onClose} title={'Редактировать профиль'} name={'profile'}>
+    <PopupWithForm
+      onSubmit={handleSubmit}
+      onClose={onClose}
+      title={'Редактировать профиль'}
+      name={'profile'}
+    >
       {profilePopup}
     </PopupWithForm>
   );

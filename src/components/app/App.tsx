@@ -57,9 +57,15 @@ const App = () => {
     setSelectedCard(link);
   };
 
+  const handleUpdateUser = ({ name, about }: User) => {
+    api.uploadUserInfo(name, about).then((data: User) => {
+      setCurrentUser(data);
+    });
+  };
+
   useEffect(() => {
-    api.getUserInfo().then((info) => {
-      setCurrentUser(info);
+    api.getUserInfo().then((data: User) => {
+      setCurrentUser(data);
     });
     api.getInitialCards().then((data) => {
       console.log(data);
@@ -77,12 +83,15 @@ const App = () => {
             onEditProfile={handleEditProfileClick}
             onCardClick={handleCardClick}
           />
-          {isEditProfilePopupOpen && <EditProfilePopup onClose={handleEditProfileClick} />}
-          {isAddPlacePopupOpen && (
-            <PopupWithForm onClose={handleAddPlaceClick} title={'Новое место'} name={'card'}>
-              {cardPopup}
-            </PopupWithForm>
+
+          {isEditProfilePopupOpen && (
+            <EditProfilePopup onUpdateUser={handleUpdateUser} onClose={handleEditProfileClick} />
           )}
+          {/*{isAddPlacePopupOpen && (*/}
+          {/*  <PopupWithForm onClose={handleAddPlaceClick} title={'Новое место'} name={'card'}>*/}
+          {/*    {cardPopup}*/}
+          {/*  </PopupWithForm>*/}
+          {/*)}*/}
           {selectedCard && <ImagePopup onClose={setSelectedCard} selectedCard={selectedCard} />}
         </CurrentCardContext.Provider>
       </CurrentUserContext.Provider>
