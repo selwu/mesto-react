@@ -1,8 +1,8 @@
 import React from 'react';
-import { DataObj } from '../main/main';
+import { CardObj } from '../../types';
 
 interface card {
-  card: DataObj;
+  card: CardObj;
   onCardClick: (link: string | undefined) => void;
 }
 
