@@ -9,6 +9,7 @@ import { CardObj, User } from '../../types';
 import { CurrentUserContext } from '../../contexts/current-user-context';
 import { CurrentCardContext } from '../../contexts/current-card-context';
 import EditProfilePopup from '../edit-profile-popup/edit-profile-popup';
+import AddPlacePopup from '../add-place-popup/add-place-popup';
 
 const App = () => {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState<boolean>(false);
@@ -45,15 +46,15 @@ const App = () => {
     </>
   );
 
-  const handleEditProfileClick = () => {
+  const handleEditProfile = () => {
     setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
   };
 
-  const handleAddPlaceClick = () => {
+  const handleAddPlace = () => {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   };
 
-  const handleCardClick = (link: string | undefined) => {
+  const handleBigImage = (link: string | undefined) => {
     setSelectedCard(link);
   };
 
@@ -79,19 +80,20 @@ const App = () => {
         <CurrentCardContext.Provider value={currentCards}>
           <Header />
           <Main
-            onAddPlace={handleAddPlaceClick}
-            onEditProfile={handleEditProfileClick}
-            onCardClick={handleCardClick}
+            onAddPlace={handleAddPlace}
+            onEditProfile={handleEditProfile}
+            onCardClick={handleBigImage}
           />
 
           {isEditProfilePopupOpen && (
-            <EditProfilePopup onUpdateUser={handleUpdateUser} onClose={handleEditProfileClick} />
+            <EditProfilePopup onUpdateUser={handleUpdateUser} onClose={handleEditProfile} />
           )}
-          {/*{isAddPlacePopupOpen && (*/}
-          {/*  <PopupWithForm onClose={handleAddPlaceClick} title={'Новое место'} name={'card'}>*/}
-          {/*    {cardPopup}*/}
-          {/*  </PopupWithForm>*/}
-          {/*)}*/}
+          {isAddPlacePopupOpen && (
+            <AddPlacePopup onClose={handleAddPlace} />
+            // <PopupWithForm onClose={handleAddPlace} title={'Новое место'} name={'card'}>
+            //   {cardPopup}
+            // </PopupWithForm>
+          )}
           {selectedCard && <ImagePopup onClose={setSelectedCard} selectedCard={selectedCard} />}
         </CurrentCardContext.Provider>
       </CurrentUserContext.Provider>
